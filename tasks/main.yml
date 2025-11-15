@@ -13,18 +13,18 @@
 - name: "Grant DB user access its database"
   community.postgresql.postgresql_privs:
     type: database
-    database: nbxplorer
+    login_db: nbxplorer
     roles: nbxplorer
     privs: all
-  become: yes
+  become: true
   become_user: postgres
 
 - name: "Granting permission to the public schema for our database"
   community.postgresql.postgresql_schema:
-    database: "nbxplorer"
+    login_db: "nbxplorer"
     name: "public"
     owner: "nbxplorer"
-  become: yes
+  become: true
   become_user: postgres
 
 - name: Connect to nbxplorer database, create a user
@@ -74,6 +74,7 @@
   ansible.builtin.command:
     chdir: "/usr/local/NBXplorer"
     cmd: "./build.sh"
+    creates: /usr/local/NBXplorer/NBXplorer/bin/Release/net8.0/NBXplorer
   become: true
   become_user: '{{ nbxplorer_user }}'
 
