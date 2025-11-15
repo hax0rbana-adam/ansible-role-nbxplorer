@@ -10,6 +10,23 @@
   become: true
   become_user: postgres
 
+- name: "Grant DB user access its database"
+  community.postgresql.postgresql_privs:
+    type: database
+    database: nbxplorer
+    roles: nbxplorer
+    privs: all
+  become: yes
+  become_user: postgres
+
+- name: "Granting permission to the public schema for our database"
+  community.postgresql.postgresql_schema:
+    database: "nbxplorer"
+    name: "public"
+    owner: "nbxplorer"
+  become: yes
+  become_user: postgres
+
 - name: Connect to nbxplorer database, create a user
   community.postgresql.postgresql_user:
     login_db: "{{ nbxplorer_db_name }}"
