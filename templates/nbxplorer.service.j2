@@ -1,10 +1,10 @@
 [Unit]
 Description=NBXplorer service
-Wants=bitcoind-main
-After=bitcoind-main
+Wants=bitcoind-main.service
+After=bitcoind-main.service
 
 [Service]
-ExecStart=/usr/local/NBXplorer/run.sh --btcrpcauth cookiefile=/usr/local/NBXplorer/rpccreds --postgres "Username={{ nbxplorer_db_user }};Password={{ nbxplorer_db_pass }};Host=localhost;Port=5432;Database={{ nbxplorer_db_name }}"
+ExecStart=/usr/local/NBXplorer/run.sh --btcrpcauth cookiefile=/usr/local/NBXplorer/rpccreds --postgres "Username={{ nbxplorer_db_user }};Password={{ nbxplorer_db_pass }};Host=localhost;Port=5432;Database={{ nbxplorer_db_name }}" --noauth
 WorkingDirectory=/usr/local/NBXplorer
 User={{ nbxplorer_user }}
 Group={{ nbxplorer_group }}
