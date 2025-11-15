@@ -53,6 +53,13 @@
   become: true
   become_user: '{{ nbxplorer_user }}'
 
+- name: Making sure we have the latest version of the NBXplorer code
+  ansible.builtin.command:
+    chdir: "/usr/local/NBXplorer"
+    cmd: "./build.sh"
+  become: true
+  become_user: '{{ nbxplorer_user }}'
+
 - name: Creating RPC cookie file to authenticate to our bitcoin node
   ansible.builtin.copy:
     content: "{{ nbxplorer_rpc_cookie }}"
