@@ -41,7 +41,7 @@ not require you have SSH running.
   roles:
     - role: hax0rbana_adam.nbxplorer
       nbxplorer_db_pass: hunter2
-      nbxplorer_rpc_cookie: rpcauth=bitcoin:4713e4cd89109157dea224c825455d05$b678b6e99f062c1e4bc321c5b75a9f08ece59177391c79a1de3d99d2a9321fed
+      nbxplorer_rpc_password: Winter2025
 ```
 
 To make a playbook to run this role on a remote host:
@@ -52,6 +52,7 @@ To make a playbook to run this role on a remote host:
   roles:
     - role: hax0rbana_adam.nbxplorer
       nbxplorer_db_pass: hunter2
+      nbxplorer_rpc_password: Winter2025
 ```
 
 # Official repo location

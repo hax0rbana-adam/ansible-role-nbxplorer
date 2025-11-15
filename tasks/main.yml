@@ -79,7 +79,7 @@
 
 - name: Creating RPC cookie file to authenticate to our bitcoin node
   ansible.builtin.copy:
-    content: "{{ nbxplorer_rpc_cookie }}"
+    content: "{{ nbxplorer_rpc_username }}:{{ nbxplorer_rpc_password }}"
     dest: /usr/local/NBXplorer/rpccreds
     owner: '{{ nbxplorer_user }}'
     group: '{{ nbxplorer_group }}'

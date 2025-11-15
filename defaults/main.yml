@@ -1,13 +1,6 @@
-# In order to authenticate to your bitcoin full node, you will need to generate
-# an rpcauth token. This can be done with the rpcauth.py script that ships with
-# bitcoin core. Running it looks something like this:
-#
-# python3 /usr/local/bitcoin-core-29.0/share/rpcauth/rpcauth.py bitcoin hunter2
-#
-# That will output an line which starts with "rpcauth=bitcoin:". That is your
-# cookie. Put that value in the nbxplorer_rpc_cookie variable.
-
-# nbxplorer_rpc_cookie:
+# Credentials to interact with your bitcoind node
+nbxplorer_rpc_username: bitcoin
+# nbxplorer_rpc_password: hunter2
 
 # set the refspec to "master" if you want rolling releases
 nbxplorer_git_refspec: v2.5.30-1
