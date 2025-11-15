@@ -1,6 +1,8 @@
 - name: Installing postgres library for the postgres module
   ansible.builtin.package:
-    name: python3-psycopg2
+    name:
+      - python3-psycopg2
+      - postgresql
 
 - name: Create a new database with name "nbxplorer"
   community.postgresql.postgresql_db:
