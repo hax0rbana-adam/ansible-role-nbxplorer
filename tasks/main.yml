@@ -25,9 +25,18 @@
     name: '{{ nbxplorer_user }}'
     group: '{{ nbxplorer_group }}'
 
+- name: Ensuring we have a directory with the correct permissions to check out the code
+  ansible.builtin.file:
+    state: directory
+    path: /usr/local/NBXplorer
+    owner: '{{ nbxplorer_user }}'
+    group: '{{ nbxplorer_group }}'
+    mode: "711"
+  register: nbxplorer_repo
+
 - name: Checking to see if we already have a checkout of the NBXplorer repo
   ansible.builtin.stat:
-    path: /usr/local/NBXplorer
+    path: /usr/local/NBXplorer/.git
   register: nbxplorer_repo
 
 - name: Making sure we have the latest version of the NBXplorer code
@@ -46,11 +55,14 @@
   ansible.builtin.copy:
     content: "{{ nbxplorer_rpc_cookie }}"
     dest: /usr/local/NBxplorer/rpccreds
+    owner: '{{ nbxplorer_user }}'
+    group: '{{ nbxplorer_group }}'
+    mode: "640"
 
-# - name: Deploying service to run NBXplorer
-#   ansible.builtin.template:
-#     src: templates/nbxplorer.service.j2
-#     dest: /etc/systemd/system/nbxplorer.service
-#     mode: '0644'
-#   notify:
-#     - Enable and start nbxplorer
+- name: Deploying service to run NBXplorer
+  ansible.builtin.template:
+    src: templates/nbxplorer.service.j2
+    dest: /etc/systemd/system/nbxplorer.service
+    mode: '0644'
+  notify:
+    - Enable and start nbxplorer
