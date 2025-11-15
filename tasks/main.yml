@@ -1,4 +1,4 @@
-- name: Installing postgres library for the postgres module
+- name: Installing postgres and the library for the postgres ansible module
   ansible.builtin.package:
     name:
       - python3-psycopg2
@@ -56,7 +56,7 @@
 - name: Creating RPC cookie file to authenticate to our bitcoin node
   ansible.builtin.copy:
     content: "{{ nbxplorer_rpc_cookie }}"
-    dest: /usr/local/NBxplorer/rpccreds
+    dest: /usr/local/NBXplorer/rpccreds
     owner: '{{ nbxplorer_user }}'
     group: '{{ nbxplorer_group }}'
     mode: "640"
