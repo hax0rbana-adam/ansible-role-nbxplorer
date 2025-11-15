@@ -1,0 +1,56 @@
+- name: Installing postgres library for the postgres module
+  ansible.builtin.package:
+    name: python3-psycopg2
+
+- name: Create a new database with name "nbxplorer"
+  community.postgresql.postgresql_db:
+    name: "{{ nbxplorer_db_name }}"
+  become: true
+  become_user: postgres
+
+- name: Connect to nbxplorer database, create a user
+  community.postgresql.postgresql_user:
+    login_db: "{{ nbxplorer_db_name }}"
+    name: "{{ nbxplorer_db_user }}"
+    password: "{{ nbxplorer_db_pass }}"
+  become: true
+  become_user: postgres
+
+- name: Make sure we have the NBXplorer group
+  ansible.builtin.group:
+    name: '{{ nbxplorer_group }}'
+
+- name: Make sure we have the NBXplorer user
+  ansible.builtin.user:
+    name: '{{ nbxplorer_user }}'
+    group: '{{ nbxplorer_group }}'
+
+- name: Checking to see if we already have a checkout of the NBXplorer repo
+  ansible.builtin.stat:
+    path: /usr/local/NBXplorer
+  register: nbxplorer_repo
+
+- name: Making sure we have the latest version of the NBXplorer code
+  ansible.builtin.git:
+    # clone the repo if it doesn't exist, otherwise update the existing repo
+    clone: "{{ not nbxplorer_repo.stat.exists }}"
+    dest: "/usr/local/NBXplorer"
+    force: true
+    refspec: "{{ nbxplorer_git_refspec }}"
+    version: "{{ nbxplorer_git_commit }}"
+    repo: https://github.com/dgarage/NBXplorer.git
+  become: true
+  become_user: '{{ nbxplorer_user }}'
+
+- name: Creating RPC cookie file to authenticate to our bitcoin node
+  ansible.builtin.copy:
+    content: "{{ nbxplorer_rpc_cookie }}"
+    dest: /usr/local/NBxplorer/rpccreds
+
+# - name: Deploying service to run NBXplorer
+#   ansible.builtin.template:
+#     src: templates/nbxplorer.service.j2
+#     dest: /etc/systemd/system/nbxplorer.service
+#     mode: '0644'
+#   notify:
+#     - Enable and start nbxplorer

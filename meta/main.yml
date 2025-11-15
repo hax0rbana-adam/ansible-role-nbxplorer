@@ -1,0 +1,18 @@
+---
+galaxy_info:
+  author: Adam
+  description: nbxplorer - A minimalist UTXO tracker for HD wallets
+  license: MIT
+  min_ansible_version: "2.7"
+  platforms:
+    - name: Debian
+      versions:
+        - trixie
+  galaxy_tags:
+    - nbxplorer
+    - bitcoin
+    - btcpay
+  role_name: nbxplorer
+  namespace: hax0rbana_adam
+
+dependencies: []

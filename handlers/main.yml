@@ -1,0 +1,6 @@
+- name: Enable and start nbxplorer
+  ansible.builtin.service:
+    name: nbxplorer
+    enabled: true
+    state: restarted
+    daemon_reload: true
