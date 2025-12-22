@@ -10,6 +10,14 @@
   become: true
   become_user: postgres
 
+- name: Connect to nbxplorer database, create a user
+  community.postgresql.postgresql_user:
+    login_db: "{{ nbxplorer_db_name }}"
+    name: "{{ nbxplorer_db_user }}"
+    password: "{{ nbxplorer_db_pass }}"
+  become: true
+  become_user: postgres
+
 - name: "Grant DB user access its database"
   community.postgresql.postgresql_privs:
     type: database
@@ -24,14 +32,6 @@
     login_db: "nbxplorer"
     name: "public"
     owner: "nbxplorer"
-  become: true
-  become_user: postgres
-
-- name: Connect to nbxplorer database, create a user
-  community.postgresql.postgresql_user:
-    login_db: "{{ nbxplorer_db_name }}"
-    name: "{{ nbxplorer_db_user }}"
-    password: "{{ nbxplorer_db_pass }}"
   become: true
   become_user: postgres
 
