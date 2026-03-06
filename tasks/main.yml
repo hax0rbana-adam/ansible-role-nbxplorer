@@ -43,7 +43,7 @@
   ansible.builtin.user:
     name: '{{ nbxplorer_user }}'
     group: '{{ nbxplorer_group }}'
-  reguster: nbxplorer_user_info
+  register: nbxplorer_user_info
 
 - name: Ensuring we have a directory with the correct permissions to check out the code
   ansible.builtin.file:
