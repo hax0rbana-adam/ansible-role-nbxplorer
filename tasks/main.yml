@@ -93,7 +93,7 @@
     line: btc.rpc.auth={{ nbxplorer_rpc_username }}:{{ nbxplorer_rpc_password }}
     dest: "{{ nbxplorer_user_info.home }}/.nbxplorer/Main/settings.config"
   notify:
-    - Enable and start nbxplorer
+    - Restart nbxplorer
 
 - name: Deploying service to run NBXplorer
   ansible.builtin.template:
