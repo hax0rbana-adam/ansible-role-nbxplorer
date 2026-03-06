@@ -5,7 +5,7 @@ After=bitcoind-main.service
 
 [Service]
 EnvironmentFile=/usr/local/NBXplorer/env_vars
-ExecStart=/usr/local/NBXplorer/run.sh{% if nbxplorer_cli_args is defined and nbxplorer_cli_args|length > 0 %}{{ nbxplorer_cli_args }}{% endif %}
+ExecStart=/usr/local/NBXplorer/run.sh{% if nbxplorer_cli_args is defined and nbxplorer_cli_args|length > 0 %}{{ ' ' ~ nbxplorer_cli_args }}{% endif %}
 
 WorkingDirectory=/usr/local/NBXplorer
 User={{ nbxplorer_user }}
