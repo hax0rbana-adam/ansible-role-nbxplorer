@@ -2,6 +2,10 @@
 nbxplorer_rpc_username: bitcoin
 # nbxplorer_rpc_password: hunter2
 
+nbxplorer_cli_args: ""
+# Add any extra command line arguments to nbxplorer to that variable. e.g.
+# nbxplorer_cli_args: "--noauth"
+
 # set the refspec to "master" if you want rolling releases
 nbxplorer_git_refspec: v2.6.0
 # set the commit to "HEAD" if you want rolling releases

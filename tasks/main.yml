@@ -78,13 +78,25 @@
   become: true
   become_user: '{{ nbxplorer_user }}'
 
-- name: Creating RPC cookie file to authenticate to our bitcoin node
-  ansible.builtin.copy:
-    content: "{{ nbxplorer_rpc_username }}:{{ nbxplorer_rpc_password }}"
-    dest: /usr/local/NBXplorer/rpccreds
+- name: Writing file with environment variables
+  ansible.builtin.template:
+    src: templates/env_vars.j2
+    dest: /usr/local/NBXplorer/env_vars
     owner: '{{ nbxplorer_user }}'
     group: '{{ nbxplorer_group }}'
-    mode: "640"
+    mode: '600'
+
+- name: Getting the path of the daemon user's home directory
+  ansible.builtin.set_fact:
+    nbxplorer_user_home: ansible_env.HOME
+  become: true
+  become_user: "{{ nbxplorer_user }}"
+
+- name: Setting RPC credentials to authenticate to our bitcoin node
+  ansible.builtin.lineinfile:
+    regexp: ^[#]btc.rpc.auth=.*
+    line: btc.rpc.auth={{ nbxplorer_rpc_username }}:{{ nbxplorer_rpc_password }}
+    dest: "{{ nbxplorer_user_home }}/.nbxplorer/Main/settings.config"
 
 - name: Deploying service to run NBXplorer
   ansible.builtin.template:

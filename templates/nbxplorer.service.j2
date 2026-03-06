@@ -4,7 +4,8 @@ Wants=bitcoind-main.service
 After=bitcoind-main.service
 
 [Service]
-ExecStart=/usr/local/NBXplorer/run.sh --btcrpcauth cookiefile=/usr/local/NBXplorer/rpccreds --postgres "Username={{ nbxplorer_db_user }};Password={{ nbxplorer_db_pass }};Host=localhost;Port=5432;Database={{ nbxplorer_db_name }}"
+EnvironmentFile=/usr/local/NBXplorer/env_vars
+ExecStart=/usr/local/NBXplorer/run.sh{% if nbxplorer_cli_args is defined and nbxplorer_cli_args|length > 0 %}{{ nbxplorer_cli_args }}{% endif %}
 WorkingDirectory=/usr/local/NBXplorer
 User={{ nbxplorer_user }}
 Group={{ nbxplorer_group }}
