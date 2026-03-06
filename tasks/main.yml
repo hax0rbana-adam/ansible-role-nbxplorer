@@ -74,7 +74,7 @@
   ansible.builtin.command:
     chdir: "/usr/local/NBXplorer"
     cmd: "./build.sh"
-    creates: /usr/local/NBXplorer/NBXplorer/bin/Release/net8.0/NBXplorer
+    creates: /usr/local/NBXplorer/NBXplorer/bin/Release/net{{ nbxplorer_dotnet_version }}.0/NBXplorer
   become: true
   become_user: '{{ nbxplorer_user }}'
 

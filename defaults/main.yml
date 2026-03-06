@@ -7,6 +7,10 @@ nbxplorer_git_refspec: v2.5.30-1
 # set the commit to "HEAD" if you want rolling releases
 nbxplorer_git_commit: be086282ae78d6cc5af378612ec95927a5a54967
 
+# The 2.5 line required .NET 8, the 2.6 line requires .NET 10
+# feel free to use hax0rbana_adam.dotnetcore_sdk to get the version you want
+nbxplorer_dotnet_version: 8
+
 # By default, run this service with the same user/group as bitcoind
 nbxplorer_user: bitcoin
 nbxplorer_group: bitcoin
