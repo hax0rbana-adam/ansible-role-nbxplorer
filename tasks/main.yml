@@ -43,6 +43,7 @@
   ansible.builtin.user:
     name: '{{ nbxplorer_user }}'
     group: '{{ nbxplorer_group }}'
+  reguster: nbxplorer_user_info
 
 - name: Ensuring we have a directory with the correct permissions to check out the code
   ansible.builtin.file:
@@ -86,17 +87,13 @@
     group: '{{ nbxplorer_group }}'
     mode: '600'
 
-- name: Getting the path of the daemon user's home directory
-  ansible.builtin.set_fact:
-    nbxplorer_user_home: ansible_env.HOME
-  become: true
-  become_user: "{{ nbxplorer_user }}"
-
 - name: Setting RPC credentials to authenticate to our bitcoin node
   ansible.builtin.lineinfile:
     regexp: ^[#]btc.rpc.auth=.*
     line: btc.rpc.auth={{ nbxplorer_rpc_username }}:{{ nbxplorer_rpc_password }}
-    dest: "{{ nbxplorer_user_home }}/.nbxplorer/Main/settings.config"
+    dest: "{{ nbxplorer_user_info.home }}/.nbxplorer/Main/settings.config"
+  notify:
+    - Enable and start nbxplorer
 
 - name: Deploying service to run NBXplorer
   ansible.builtin.template:
