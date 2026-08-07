@@ -7,9 +7,9 @@ nbxplorer_cli_args: ""
 # nbxplorer_cli_args: "--noauth"
 
 # set the refspec to "master" if you want rolling releases
-nbxplorer_git_refspec: v2.6.0
+nbxplorer_git_refspec: v2.6.10
 # set the commit to "HEAD" if you want rolling releases
-nbxplorer_git_commit: 05d8ed054e6436a3b43ecebb062e53f4a342f418
+nbxplorer_git_commit: 78305a14c82bc7014f93b397d5c2dea9226b482c
 
 # The 2.5 line required .NET 8, the 2.6 line requires .NET 10
 # feel free to use hax0rbana_adam.dotnetcore_sdk to get the version you want
