@@ -1,3 +1,11 @@
+- name: Building NBXplorer executables
+  ansible.builtin.command:
+    chdir: "/usr/local/NBXplorer"
+    cmd: "./build.sh"
+  notify: Restart nbxplorer
+  become: true
+  become_user: '{{ nbxplorer_user }}'
+
 - name: Restart nbxplorer
   ansible.builtin.service:
     name: nbxplorer

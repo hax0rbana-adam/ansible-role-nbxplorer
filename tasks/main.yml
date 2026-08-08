@@ -68,8 +68,12 @@
     refspec: "{{ nbxplorer_git_refspec }}"
     version: "{{ nbxplorer_git_commit }}"
     repo: https://github.com/dgarage/NBXplorer.git
+  notify: Building NBXplorer executables
   become: true
   become_user: '{{ nbxplorer_user }}'
+
+- name: Recompile NBXplorer if we got new code
+  ansible.builtin.meta: flush_handlers
 
 - name: Building NBXplorer executables
   ansible.builtin.command:
